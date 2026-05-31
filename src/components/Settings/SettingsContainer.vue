@@ -80,13 +80,13 @@ section {
   position: relative;
   display: flex;
   align-items: stretch;
+  justify-content: flex-end;
   background: linear-gradient(0deg, var(--background) 0%, var(--background-darker) 100%);
   box-shadow: var(--settings-container-shadow);
 }
 
 .options-outer {
-  position: relative;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: flex-end;
   flex: 1;

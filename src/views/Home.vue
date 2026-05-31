@@ -1,11 +1,6 @@
 <!-- Main homepage for default view -->
 <template>
   <div class="home" :style="getBackgroundImage()">
-    <!-- Search bar, layout options and settings -->
-    <SettingsContainer ref="filterComp"
-      @user-is-searchin="searching"
-      class="settings-outer"
-    />
     <!-- Show back button, when on single-section view -->
     <div v-if="singleSectionView">
       <router-link :to="backToAllPath" class="back-to-all-link">
@@ -13,28 +8,39 @@
         <span>Back to All</span>
       </router-link>
     </div>
-    <!-- Main content, section for each group of items -->
-    <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass"
-      ref="sectionsContainer">
-      <template v-for="(section, index) in filteredSections" :key="makeSectionId(section)">
-        <Section
-          :index="index"
-          :title="section.name"
-          :icon="section.icon || undefined"
-          :displayData="getDisplayData(section)"
-          :groupId="makeSectionId(section)"
-          :items="section.filteredItems"
-          :widgets="section.widgets"
-          :itemSize="itemSizeBound"
-          @itemClicked="finishedSearching()"
-          @change-modal-visibility="updateModalVisibility"
-          :isWide="!!singleSectionView || layoutOrientation === 'horizontal'"
-          :class="(searchValue && section.filteredItems.length === 0) ? 'no-results' : ''"
-          :activeColCount="activeColCount"
-        />
-      </template>
-      <!-- Show add new section button, in edit mode -->
-      <AddNewSection v-if="isEditMode && !singleSectionView" />
+    <div class="content-layout">
+      <aside class="profile-card">
+        <img
+          class="profile-avatar"
+          src="https://avatars.githubusercontent.com/u/169977685?v=4"
+          alt="Dreamweaver avatar"
+        >
+        <h2>Dreamweaver</h2>
+        <p>Backend developer and distributed systems enthusiast. Studying Software Engineering at Tongji University.</p>
+      </aside>
+      <!-- Main content, section for each group of items -->
+      <div v-if="checkTheresData(sections) || isEditMode" :class="computedClass"
+        ref="sectionsContainer">
+        <template v-for="(section, index) in filteredSections" :key="makeSectionId(section)">
+          <Section
+            :index="index"
+            :title="section.name"
+            :icon="section.icon || undefined"
+            :displayData="getDisplayData(section)"
+            :groupId="makeSectionId(section)"
+            :items="section.filteredItems"
+            :widgets="section.widgets"
+            :itemSize="itemSizeBound"
+            @itemClicked="finishedSearching()"
+            @change-modal-visibility="updateModalVisibility"
+            :isWide="!!singleSectionView || layoutOrientation === 'horizontal'"
+            :class="(searchValue && section.filteredItems.length === 0) ? 'no-results' : ''"
+            :activeColCount="activeColCount"
+          />
+        </template>
+        <!-- Show add new section button, in edit mode -->
+        <AddNewSection v-if="isEditMode && !singleSectionView" />
+      </div>
     </div>
     <!-- Show message when there's no data to show -->
     <div v-if="checkIfResults(filteredSections) && !isEditMode" class="no-data">
@@ -57,7 +63,6 @@
 <script>
 import { defineAsyncComponent } from 'vue';
 import HomeMixin from '@/mixins/HomeMixin';
-import SettingsContainer from '@/components/Settings/SettingsContainer.vue';
 import Section from '@/components/LinkItems/Section.vue';
 import NotificationThing from '@/components/Settings/LocalConfigWarning.vue';
 import Button from '@/components/FormElements/Button';
@@ -74,7 +79,6 @@ export default {
   name: 'home',
   mixins: [HomeMixin],
   components: {
-    SettingsContainer,
     EditModeSaveMenu,
     AddNewSection,
     NotificationThing,
@@ -135,9 +139,7 @@ export default {
   },
   methods: {
     /* Clears input field, once a searched item is opened */
-    finishedSearching() {
-      if (this.$refs.filterComp) this.$refs.filterComp.clearFilterInput();
-    },
+    finishedSearching() {},
     /* Returns optional section display preferences if available */
     getDisplayData(section) {
       const displayData = section.displayData ? { ...section.displayData } : {};
@@ -194,6 +196,67 @@ export default {
   @extend .svg-button;
   svg { margin-right: 0.5rem; }
   text-decoration: none;
+}
+
+.content-layout {
+  display: grid;
+  grid-template-columns: 18rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  margin: 0 1rem 0 0;
+
+  @include phone {
+    display: block;
+    margin: 0;
+  }
+}
+
+.profile-card {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - var(--footer-height));
+  margin: 0;
+  padding: 2rem 1.25rem;
+  border: 1px solid var(--outline-color);
+  border-radius: var(--curve-factor);
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38)),
+    url('@/assets/pictures/校园晚霞.jpg') center / cover;
+  color: #fff;
+  text-align: center;
+  box-shadow: var(--item-shadow);
+  box-sizing: border-box;
+
+  @include phone {
+    position: relative;
+    top: auto;
+    min-height: auto;
+    margin: 0.5rem;
+  }
+
+  h2 {
+    margin: 0.75rem 0 0.5rem;
+    color: var(--primary);
+    font-size: 1.4rem;
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+}
+
+.profile-avatar {
+  width: 7rem;
+  height: 7rem;
+  border: 3px solid var(--primary);
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 /* Outside container wrapping the item groups*/
@@ -300,14 +363,6 @@ export default {
       font-size: 1rem;
       opacity: 0.8;
     }
-}
-
-/* Settings section, includes search, config and user settings */
-section.settings-outer {
-  border-bottom: 1px solid var(--outline-color);
-  @include phone {
-    flex-direction: column;
-  }
 }
 
 </style>

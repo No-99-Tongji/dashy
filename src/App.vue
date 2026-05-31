@@ -1,23 +1,12 @@
 <template>
   <div id="dashy" :style="topLevelStyleModifications" :class="subPageClassName">
-    <aside class="profile-card">
-      <img
-        class="profile-avatar"
-        src="https://avatars.githubusercontent.com/u/169977685?v=4"
-        alt="Dreamweaver avatar"
-      >
-      <h2>Dreamweaver</h2>
-      <p>Backend developer and distributed systems enthusiast. Studying Software Engineering at Tongji University.</p>
-    </aside>
-    <div class="dashy-main">
-      <EditModeTopBanner v-if="isEditMode" />
-      <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash" />
-      <Header :pageInfo="pageInfo" />
-      <router-view v-if="!isFetching" />
-      <CriticalError v-if="hasCriticalError" />
-      <Footer :text="footerText" v-if="footerVisible && !isFetching" />
-      <RemoteConfigLoader v-if="!isFetching" />
-    </div>
+    <EditModeTopBanner v-if="isEditMode" />
+    <LoadingScreen :isLoading="isLoading" v-if="shouldShowSplash" />
+    <Header :pageInfo="pageInfo" />
+    <router-view v-if="!isFetching" />
+    <CriticalError v-if="hasCriticalError" />
+    <Footer :text="footerText" v-if="footerVisible && !isFetching" />
+    <RemoteConfigLoader v-if="!isFetching" />
   </div>
 </template>
 <script>
@@ -267,65 +256,4 @@ export default {
 @import '@/styles/color-themes.scss';
 @import '@/styles/typography.scss';
 @import '@/styles/user-defined-themes.scss';
-#dashy {
-  display: grid;
-  grid-template-columns: 18rem minmax(0, 1fr);
-  min-height: 100vh;
-}
-
-.dashy-main {
-  min-width: 0;
-}
-
-.profile-card {
-  position: sticky;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 2rem 1.25rem;
-  border-right: 1px solid var(--outline-color);
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38)),
-    url('@/assets/pictures/校园晚灯.jpg') center / cover;
-  color: #fff;
-  text-align: center;
-  box-sizing: border-box;
-}
-
-.profile-card h2 {
-  margin: 0.75rem 0 0.5rem;
-  color: var(--primary);
-  font-size: 1.4rem;
-}
-
-.profile-card p {
-  margin: 0;
-  line-height: 1.5;
-  opacity: 0.9;
-}
-
-.profile-avatar {
-  width: 7rem;
-  height: 7rem;
-  border: 3px solid var(--primary);
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-@media (max-width: 480px) {
-  #dashy {
-    display: block;
-  }
-
-  .profile-card {
-    position: relative;
-    min-height: auto;
-    border-right: none;
-    border-bottom: 1px solid var(--outline-color);
-  }
-}
-
 </style>
