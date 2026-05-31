@@ -2,7 +2,7 @@
 services:
   dashy:
     container_name: Dashy
-    image: lissy93/dashy:latest
+    build: .
 
     # Or use a different registry (like GHCR), or a specific tag (like :4.0.0)
     # image: ghcr.io/lissy93/dashy or image: lissy93/dashy:3.0.0
