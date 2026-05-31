@@ -1,13 +1,8 @@
 ---
 # Page meta info, like heading, footer text and nav links
 pageInfo:
-  title: Dashy
-  description: Welcome to your new dashboard!
-  navLinks:
-  - title: GitHub
-    path: https://github.com/Lissy93/dashy
-  - title: Documentation
-    path: https://dashy.to/docs
+  title: Dreamweaver's page
+  description: Welcome to my portal page!
 
 # Optional app settings and configuration
 appConfig:
@@ -15,44 +10,29 @@ appConfig:
 
 # Main content - An array of sections, each containing an array of items
 sections:
-  - name: Getting Started
+  - name: About Me
     icon: fas fa-rocket
     items:
       - title: GitHub
         description: Source Code, Issues and Pull Requests
-        url: https://github.com/lissy93/dashy
+        url: https://github.com/No-99-Tongji
         icon: si-github
-      - title: Docs
+      - title: Blog
         description: Configuring & Usage Documentation
-        provider: Dashy.to
+        provider: no-99-tongji.github.io
         icon: far fa-book
-        url: https://dashy.to/docs
+        url: https://no-99-tongji.github.io/
 
-  - name: Support Dashy
-    icon: fas fa-heart
+  - name: Tools
+    icon: fas fa-toolbox
     displayData:
       itemSize: large
-    widgets:
-      - type: image
-        label: Dashy is made possible thanks to our awesome sponsors
-        options:
-          imagePath: https://readme-contribs.as93.net/sponsors/lissy93?perRow=5&shape=squircle
     items:
-      - title: Sponsor
-        url: https://github.com/sponsors/lissy93
-        description: Sponsor @Lissy93 on GitHub to support with ongoing development of Dashy
-        icon: 🩷
+      - title: 软管RAG工具
+        url: http://24.233.15.7:9000/
+        icon: fas fa-toolbox
         color: '#ff78d1'
         backgroundColor: '#c30c844a'
 
-  - name: Latest Updates
-    icon: fas fa-code-branch
-    displayData:
-      cols: 1
-      rows: 3
-      cutToHeight: true
-    widgets:
-      - type: rss-feed
-        options:
-          rssUrl: https://github.com/lissy93/dashy/releases.atom
-          limit: 5
+  - name: Notice
+    icon: fas fa-bullhorn

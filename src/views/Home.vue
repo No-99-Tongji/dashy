@@ -200,8 +200,8 @@ export default {
 .item-group-container {
   display: grid;
   gap: 0.5rem;
-  margin: 0 auto;
-  max-width: var(--content-max-width, 90%);
+  margin: 0;
+  max-width: 100%;
   overflow: auto;
   @extend .scroll-bar;
   @include monitor-up {
